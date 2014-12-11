@@ -63,10 +63,7 @@ public class generateMatrix {
                         for (int k = 0; k < wordCountString.length; k++) {
                             count = Double.parseDouble(wordCountString[k]);
 
-                            if(count>1) {
-                                wordCount[i][k]=1;
-                            }
-                            else wordCount[i][k]=count;
+                            wordCount[i][k]=count;
                         }
                         i++;
 
@@ -85,6 +82,22 @@ public class generateMatrix {
         }
 
         return wordCount;
+    }
+
+    // recreating wordCount as a percentage of total wordCount in particular genre
+    public static double [] wordCountRefer(double [] w){
+
+        double total=0.0;
+
+        for(int i=0; i<w.length; i++){
+            total=total+w[i];
+        }
+
+        for(int i=0; i<w.length; i++){
+            w[i]=(w[i]/total)*100;
+        }
+
+        return w;
     }
 
    /* public static void  main(String [] args){
