@@ -9,9 +9,9 @@ public class Knn {
     static double [][] wordCount =generateMatrix.genWordCount("dtmFor5Gen.csv");          //training wordCount
     static String [] WordList=generateMatrix.genWordList("dtmFor5Gen.csv");               //training WordList
 
-    static String [] WordListTesting=generateMatrix.genWordList("musicScene1969.csv");        //testing wordlist
+    static String [] WordListTesting=generateMatrix.genWordList("32shortFilms.csv");        //testing wordlist
 
-    static double [][] WordCountTesting=generateMatrix.genWordCount("musicScene1969.csv");    //testing wordcount
+    static double [][] WordCountTesting=generateMatrix.genWordCount("32shortFilms.csv");    //testing wordcount
     static  double [] WordCountTesting1=WordCountTesting[0];
 
     static int size=WordList.length;
@@ -136,7 +136,7 @@ public class Knn {
         genres.writeMusic();
         genres.writeSport();
 
-        int k=5; //number of neighbours to be considered.in here this should equal or less than number of genres
+        int k=3; //number of neighbours to be considered.in here this should equal or less than number of genres
 
         List <Genre> genreList = new ArrayList<Genre>();
         List <Result> resultList = new ArrayList<Result>();
@@ -149,9 +149,9 @@ public class Knn {
         //generating genre List
 
         genreList.add(new Genre(wordCount[0],"Action"));
-        genreList.add(new Genre(wordCount[1],"Romance"));
-        genreList.add(new Genre(wordCount[2],"Comedy"));
-        genreList.add(new Genre(wordCount[3],"Music"));
+        genreList.add(new Genre(wordCount[1],"Comedy"));
+        genreList.add(new Genre(wordCount[2],"Music"));
+        genreList.add(new Genre(wordCount[3],"Romance"));
         genreList.add(new Genre(wordCount[4],"Sport"));
 
 
@@ -198,14 +198,27 @@ public class Knn {
 
         String [] ss=new String[k];
 
-        for(int x=0; x< k; x++){
-            System.out.println(resultList.get(x).genreName+" -> "+resultList.get(x).distance);
+        //calculate genre percentage
+        double totalDistance=0.0;
+        double tempPercentage=0.0;
+        double [] percentage=new double[k];
 
+        for(int i=0; i<k; i++){
+
+                 totalDistance= totalDistance+ (resultList.get(i).distance);
+        }
+
+        for(int x=0; x<k; x++){
+
+            tempPercentage=( (resultList.get(x).distance)/totalDistance )*100;
+            percentage[x]=tempPercentage;
+            System.out.println(resultList.get(x).genreName+" -> "+tempPercentage+"%");
+                                     tempPercentage=0.0;
             ss[x]= resultList.get(x).genreName;
         }
-        String majClass=findMajorityClass(ss);
+        //String majClass=findMajorityClass(ss);
 
-        System.out.println("Class of new Instance is: "+majClass);
+        //System.out.println("Class of new Instance is: "+majClass);
 
 
     } //end of main
