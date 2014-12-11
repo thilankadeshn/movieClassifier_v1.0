@@ -6,12 +6,12 @@ import java.util.*;
 
 public class Knn {
 
-    static double [][] wordCount =generateMatrix.genWordCount("dtm4.csv");          //training wordCount
-    static String [] WordList=generateMatrix.genWordList("dtm4.csv");               //training WordList
+    static double [][] wordCount =generateMatrix.genWordCount("dtmFor5Gen.csv");          //training wordCount
+    static String [] WordList=generateMatrix.genWordList("dtmFor5Gen.csv");               //training WordList
 
-    static String [] WordListTesting=generateMatrix.genWordList("firstBlood.csv");        //testing wordlist
+    static String [] WordListTesting=generateMatrix.genWordList("musicScene1969.csv");        //testing wordlist
 
-    static double [][] WordCountTesting=generateMatrix.genWordCount("firstBlood.csv");    //testing wordcount
+    static double [][] WordCountTesting=generateMatrix.genWordCount("musicScene1969.csv");    //testing wordcount
     static  double [] WordCountTesting1=WordCountTesting[0];
 
     static int size=WordList.length;
@@ -134,8 +134,9 @@ public class Knn {
         genres.writeRomance();
         genres.writeComedy();
         genres.writeMusic();
+        genres.writeSport();
 
-        int k=4; //number of neighbours to be considered.in here this should equal or less than number of genres
+        int k=5; //number of neighbours to be considered.in here this should equal or less than number of genres
 
         List <Genre> genreList = new ArrayList<Genre>();
         List <Result> resultList = new ArrayList<Result>();
@@ -151,6 +152,7 @@ public class Knn {
         genreList.add(new Genre(wordCount[1],"Romance"));
         genreList.add(new Genre(wordCount[2],"Comedy"));
         genreList.add(new Genre(wordCount[3],"Music"));
+        genreList.add(new Genre(wordCount[4],"Sport"));
 
 
         double [] NewDistance = calDistMatrix() ;
