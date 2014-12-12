@@ -115,14 +115,31 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         plot =  textarea.getText();
+        File newfile=new File("C:\\Users\\Thilanka\\IdeaProjects\\MovieClassifier\\testPlot.txt");
+        BufferedReader bufferRd;
+        BufferedWriter outbuff;
 
-        PrintWriter out;
+        String line=null;
+
         try {
-            out = new PrintWriter(path + "testPlot.txt");
-            out.println(plot);
-            out.close();
+            FileReader fileRd = new FileReader (plot);
+            bufferRd= new BufferedReader (fileRd);
+
+            outbuff = new  BufferedWriter(new FileWriter(newfile));
+
+            while( (line=bufferRd.readLine()) != null ){
+                outbuff.write(line+"\n"+"\r\n");
+
+            }
+            outbuff.close();
+            bufferRd.close();
+
+
         } catch (FileNotFoundException ex) {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }catch(IOException ex){
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
