@@ -107,4 +107,24 @@ public class genres {
         }
 
     }
+
+    public static void writeCrime(){
+        File folder=new File("E:/EDucational/Acadamic/Com Eng/Short Sem/CO227/Projects/Our Project/Movie/Dataset/training/crime");
+        File [] listOfFiles= folder.listFiles();
+        File newfile=new File("E:/EDucational/Acadamic/Com Eng/Short Sem/CO227/Projects/Our Project/Movie/InJDataset/crime.txt");
+
+        for(int i=0; i<listOfFiles.length; i++){
+            File file=listOfFiles[i];
+
+            if(file.isFile() && file.getName().endsWith(".txt")){
+                try {
+                    String content=FileUtils.readFileToString(file);            //reading files one by one
+                    FileUtils.writeStringToFile(newfile,content,"UTF-8",true);  //appending text to new text
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
 }

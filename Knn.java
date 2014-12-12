@@ -9,9 +9,9 @@ public class Knn {
     static double [][] wordCount =generateMatrix.genWordCount("dtmFor5Gen.csv");          //training wordCount
     static String [] WordList=generateMatrix.genWordList("dtmFor5Gen.csv");               //training WordList
 
-    static String [] WordListTesting=generateMatrix.genWordList("32shortFilms.csv");        //testing wordlist
+    static String [] WordListTesting=generateMatrix.genWordList("Blood.csv");        //testing wordlist
 
-    static double [][] WordCountTesting=generateMatrix.genWordCount("32shortFilms.csv");    //testing wordcount
+    static double [][] WordCountTesting=generateMatrix.genWordCount("Blood.csv");    //testing wordcount
     static  double [] WordCountTesting1=WordCountTesting[0];
 
     static int size=WordList.length;
@@ -153,6 +153,7 @@ public class Knn {
         genreList.add(new Genre(wordCount[2],"Music"));
         genreList.add(new Genre(wordCount[3],"Romance"));
         genreList.add(new Genre(wordCount[4],"Sport"));
+        genreList.add(new Genre(wordCount[5],"Sport"));
 
 
         double [] NewDistance = calDistMatrix() ;
@@ -173,7 +174,7 @@ public class Knn {
         }
 
         System.out.println("Before Sorting");
-        for(int x=0; x< k; x++){
+        for(int x=0; x< resultList.size(); x++){
             System.out.println(resultList.get(x).genreName+" -> "+resultList.get(x).distance);
 
         }

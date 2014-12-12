@@ -38,7 +38,7 @@ public class generateMatrix {
         int size=word1.length;
         //System.out.println(size);
 
-        double [][] wordCount = new double [3][size];
+        double [][] wordCount = new double [5][size];
         String [] wordCountString= new String[size];
         int time = 1;
         //int j=0;
