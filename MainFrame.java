@@ -6,6 +6,7 @@
 
 //package movclassi2;
 
+import java.io.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -105,7 +106,7 @@ public class MainFrame extends javax.swing.JFrame {
                 //out.close();
 
             } catch (IOException ex) {
-                System.out.println("problem accessing file"+file.getAbsolutePath());
+                System.out.println( "problem accessing file"+file.getAbsolutePath() );
             }
         } else {
             System.out.println("File access cancelled by user.");
@@ -117,7 +118,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         PrintWriter out;
         try {
-            out = new PrintWriter(path + "testPlot.csv");
+            out = new PrintWriter(path + "testPlot.txt");
             out.println(plot);
             out.close();
         } catch (FileNotFoundException ex) {
