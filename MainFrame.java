@@ -6,7 +6,6 @@
 
 //package movclassi2;
 
-import java.io.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -115,31 +114,14 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         plot =  textarea.getText();
-        File newfile=new File("C:\\Users\\Thilanka\\IdeaProjects\\MovieClassifier\\testPlot.txt");
-        BufferedReader bufferRd;
-        BufferedWriter outbuff;
 
-        String line=null;
-
+        PrintWriter out;
         try {
-            FileReader fileRd = new FileReader (plot);
-            bufferRd= new BufferedReader (fileRd);
-
-            outbuff = new  BufferedWriter(new FileWriter(newfile));
-
-            while( (line=bufferRd.readLine()) != null ){
-                outbuff.write(line+"\n"+"\r\n");
-
-            }
-            outbuff.close();
-            bufferRd.close();
-
-
+            out = new PrintWriter(path + "testPlot.csv");
+            out.println(plot);
+            out.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }catch(IOException ex){
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
