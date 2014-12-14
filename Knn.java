@@ -1,7 +1,7 @@
 /**
  * Created by Thilanka on 12/9/2014.
  */
-
+import java.io.*;
 import java.util.*;
 
 public class Knn {
@@ -11,8 +11,8 @@ public class Knn {
 
     static String [] WordListTesting=generateMatrix.genWordList("dearJohn.csv");        //testing wordlist
 
-    static double [][] WordCountTesting=generateMatrix.genWordCount("dearJohn.csv");    //testing wordcount
-    static  double [] WordCountTesting1=WordCountTesting[0];
+   // static double [][] WordCountTesting=generateMatrix.genWordCount("dearJohn.csv");    //testing wordcount
+    //static  double [] WordCountTesting1=WordCountTesting[0];
 
     static int size=WordList.length;
     static double [] NewDistance=new double[size];
@@ -111,13 +111,13 @@ public class Knn {
 
     }
 
-    private static double [] calDistMatrix(){
+    private static double [] calDistMatrix(String [] plotString){
 
         for(int i=0; i<WordList.length ; i++){
-            for(int j=0; j<WordListTesting.length; j++){
-                if( WordList[i].equals(WordListTesting[j])  ){
+            for(int j=0; j<plotString.length; j++){
+                if( WordList[i].equals(plotString[j] )  ){
 
-                        NewDistance[i]=WordCountTesting1[j];
+                        NewDistance[i]=NewDistance[i]+1;
 
                 }
             }
@@ -128,7 +128,7 @@ public class Knn {
 
 
     ///main function
-    public  static  void main (String [] args){
+    public  static  void run (){
 
         genres.writeAction();
         genres.writeRomance();
@@ -155,8 +155,33 @@ public class Knn {
         genreList.add(new Genre(wordCount[4],"Sport"));
         //genreList.add(new Genre(wordCount[5],"Sport"));
 
+            String [] s;
+        ////reading file ///////////////////////////new//////////////////////////////////////////////////////////
+        String filename="testPlot.txt";
+        try {
+            FileReader fileRd = new FileReader(filename);
+            BufferedReader bufferRd;
+            bufferRd= new BufferedReader (fileRd);
 
-        double [] NewDistance = calDistMatrix() ;
+            String line;
+
+            while( (line=bufferRd.readLine()) != null ){
+                s = line.split("\\s+");
+                NewDistance = calDistMatrix(s) ;
+
+
+            }
+        }
+        catch (FileNotFoundException ex){
+            System.out.println(ex);
+        }
+        catch (IOException ex1){
+            System.out.println(ex1);
+        }
+
+
+        ////////////////////////////////////////////new///////////////////////////////////////////////////////////
+        //double [] NewDistance = calDistMatrix( ) ;
         NewDistance=generateMatrix.wordCountRefer(NewDistance);
 
         for (int i = 0; i < genreList.size(); i++) {

@@ -91,6 +91,7 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     String path =  "C:\\Users\\Thilanka\\IdeaProjects\\MovieClassifier\\", plot = null;
+    public String [] s;
     private void btn_uploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_uploadActionPerformed
         int returnVal = fileChooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -99,10 +100,10 @@ public class MainFrame extends javax.swing.JFrame {
                 // What to do with the file, e.g. display it in a TextArea
                 textarea.read( new FileReader( file.getAbsolutePath() ), null );
 
-                //plot =  textarea.getText();
-                //PrintWriter out = new PrintWriter(path + "Check\\testPlot.txt");
-                //out.println(plot);
-                //out.close();
+                plot =  textarea.getText();
+               // s = plot.split("\\s+");
+
+
 
             } catch (IOException ex) {
                 System.out.println( "problem accessing file"+file.getAbsolutePath() );
@@ -117,9 +118,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         PrintWriter out;
         try {
-            out = new PrintWriter(path + "testPlot.csv");
+            out = new PrintWriter(path + "testPlot.txt");
             out.println(plot);
             out.close();
+
+            Knn.run();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
