@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFileChooser;
+import javax.swing.*;
 
 /**
  *
@@ -49,7 +49,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
-        fileChooser.setCurrentDirectory(new java.io.File("C:\\Users\\Nitre\\Desktop"));
+        fileChooser.setCurrentDirectory(new java.io.File("C:\\Users\\Thilanka\\Desktop"));
         fileChooser.setDialogTitle("Open Plot");
         fileChooser.setFileFilter(new MyCustomFilter());
 
@@ -80,7 +80,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        btn_reset.setText("RESET");
+        btn_reset.setText("CLEAR");
         btn_reset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_resetActionPerformed(evt);
@@ -205,25 +205,36 @@ public class MainFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         plot =  textarea.getText();
 
-        PrintWriter out;
-        try {
-            out = new PrintWriter( path + "testPlot.txt");
-            out.println(plot);
-            out.close();
+        if(plot.isEmpty()){
+            JOptionPane.showMessageDialog(new JFrame(),"Enter a plot First to find Genre !","ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+        else {
+            PrintWriter out;
+            try {
+                out = new PrintWriter(path + "testPlot.txt");
+                out.println(plot);
+                out.close();
 
-            Knn.run();
+                Knn.run();
 
-            jLabel5.setText("<html>"+Knn.output[0]+"<br>"+Knn.output[1]+"<br>"+Knn.output[2]+"</html>");
+                jLabel5.setText("<html>" + Knn.output[0] + "<br>" + Knn.output[1] + "<br>" + Knn.output[2] + "</html>");
 
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btn_resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_resetActionPerformed
-        textarea.setText("");
-        jLabel5.setText("");
+        int resetButton  = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(null,"Are you sure you want to clear?","Confirm",resetButton);
+
+        if( dialogResult == JOptionPane.YES_OPTION){
+            textarea.setText("");
+            jLabel5.setText("");
+        }
+        
     }//GEN-LAST:event_btn_resetActionPerformed
 
     /**
