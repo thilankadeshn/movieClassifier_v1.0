@@ -9,13 +9,17 @@ public class Knn {
     static double [][] wordCount =generateMatrix.genWordCount("dtmFor5Gen.csv");          //training wordCount
     static String [] WordList=generateMatrix.genWordList("dtmFor5Gen.csv");               //training WordList
 
-    static String [] WordListTesting=generateMatrix.genWordList("dearJohn.csv");        //testing wordlist
+    //static String [] WordListTesting=generateMatrix.genWordList("badsides.csv");        //testing wordlist
 
    // static double [][] WordCountTesting=generateMatrix.genWordCount("dearJohn.csv");    //testing wordcount
     //static  double [] WordCountTesting1=WordCountTesting[0];
 
     static int size=WordList.length;
     static double [] NewDistance=new double[size];
+
+    static int noOfGenres = 5, noOfGenresLess20;      //noOfGEnres->total no of Genres We consider,noOfGenresLess20->noOfGenres<20%
+    static String [] ss=new String[noOfGenres];                                                    //number of Genres
+    static String [] output = {"","",""};
 
 
 
@@ -184,6 +188,7 @@ public class Knn {
         //double [] NewDistance = calDistMatrix( ) ;
         NewDistance=generateMatrix.wordCountRefer(NewDistance);
 
+        //calculating euclidean distances for each genres
         for (int i = 0; i < genreList.size(); i++) {
             Genre genre = genreList.get(i);
             double dist = 0.0;
@@ -222,19 +227,19 @@ public class Knn {
             }
         } */
 
-        String [] ss=new String[k];
+
 
         //calculate genre percentage
         double totalDistance=0.0;
         double tempPercentage=0.0;
-        double [] percentage=new double[k];
+        double [] percentage=new double[noOfGenres];
 
-        for(int i=0; i<k; i++){
+        for(int i=0; i<noOfGenres; i++){
 
                  totalDistance= totalDistance+ (resultList.get(i).distance);
         }
 
-        for(int x=0; x<k; x++){
+        for(int x=0; x<noOfGenres; x++){
 
             tempPercentage=( (resultList.get(x).distance)/totalDistance )*100;
             percentage[x]=tempPercentage;
@@ -242,6 +247,26 @@ public class Knn {
                                      tempPercentage=0.0;
             ss[x]= resultList.get(x).genreName;
         }
+
+        noOfGenresLess20=0;
+
+        for(int i=0; i<noOfGenres; i++){
+            if( percentage[i] < 20.0){
+                noOfGenresLess20++;
+            }
+            else break;
+        }
+
+        for(int i=0; i<noOfGenresLess20; i++){
+            output[i] = ss[i];
+        }
+
+
+
+
+
+       //System.out.println(noOfGenresLess20);
+
         //String majClass=findMajorityClass(ss);
 
         //System.out.println("Class of new Instance is: "+majClass);
