@@ -257,6 +257,10 @@ public class Knn {
             else break;
         }
 
+        for(int i=0; i<3; i++){
+            output[i] = "";
+        }
+
         for(int i=0; i<noOfGenresLess20; i++){
             output[i] = ss[i];
         }
